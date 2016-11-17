@@ -90,12 +90,12 @@ bool BlamSlam::Initialize(const ros::NodeHandle& n, bool from_log) {
 
 bool BlamSlam::LoadParameters(const ros::NodeHandle& n) {
   // Load update rates.
-  if (!pu::Get("rate/estimate", estimate_update_rate_)) return false;
-  if (!pu::Get("rate/visualization", visualization_update_rate_)) return false;
+  if (!pu::get("rate/estimate", estimate_update_rate_)) return false;
+  if (!pu::get("rate/visualization", visualization_update_rate_)) return false;
 
   // Load frame ids.
-  if (!pu::Get("frame_id/fixed", fixed_frame_id_)) return false;
-  if (!pu::Get("frame_id/base", base_frame_id_)) return false;
+  if (!pu::get("frame_id/fixed", fixed_frame_id_)) return false;
+  if (!pu::get("frame_id/base", base_frame_id_)) return false;
 
   return true;
 }
@@ -234,7 +234,7 @@ void BlamSlam::ProcessPointCloudMessage(const PointCloud::ConstPtr& msg) {
     // No new loop closures - but was there a new key frame? If so, add new
     // points to the map.
     if (new_keyframe) {
-      localization_.MotionUpdate(gu::Transform3::Identity());
+      localization_.MotionUpdate(gu::Transform3::identity());
       localization_.TransformPointsToFixedFrame(*msg, msg_fixed.get());
       PointCloud::Ptr unused(new PointCloud);
       mapper_.InsertPoints(msg_fixed, unused.get());
@@ -261,8 +261,7 @@ bool BlamSlam::HandleLoopClosures(const PointCloud::ConstPtr& scan,
 
   // Add the new pose to the pose graph.
   unsigned int pose_key;
-  gu::MatrixNxNBase<double, 6> covariance;
-  covariance.Zeros();
+  gu::MatrixNxNBase<double, 6> covariance(0);
   for (int i = 0; i < 3; ++i)
     covariance(i, i) = 0.01;
   for (int i = 3; i < 6; ++i)

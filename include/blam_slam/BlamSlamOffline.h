@@ -110,7 +110,7 @@ class BlamSlamOffline {
   bool LoadParameters(const ros::NodeHandle& n) {
 
     // Check that bag file exists.
-    if (!pu::Get("filename/bag", bag_filename_)) return false;
+    if (!pu::get("filename/bag", bag_filename_)) return false;
     boost::filesystem::path bag_path(bag_filename_);
     if (!boost::filesystem::exists(bag_path)) {
       ROS_ERROR("%s: Bag file does not exist.", name_.c_str());
@@ -119,12 +119,12 @@ class BlamSlamOffline {
 
     // For time_end, -1.0 means "end of file". For time_scale, -1.0 means
     // "process messages as fast as possible".
-    pu::Get("time_start", time_start_, 0.0);
-    pu::Get("time_end", time_end_, -1.0);
-    pu::Get("time_scale", time_scale_, -1.0);
+    pu::get("time_start", time_start_, 0.0);
+    pu::get("time_end", time_end_, -1.0);
+    pu::get("time_scale", time_scale_, -1.0);
 
     // Load bagfile topic names.
-    if (!pu::Get("scan_topic", scan_topic_)) return false;
+    if (!pu::get("scan_topic", scan_topic_)) return false;
 
     return true;
   }
