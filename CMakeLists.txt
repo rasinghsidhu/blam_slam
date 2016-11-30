@@ -61,3 +61,9 @@ target_link_libraries(${PROJECT_NAME}_offline
   ${PROJECT_NAME}
   ${catkin_LIBRARIES}
 )
+
+add_executable(${PROJECT_NAME}_broadcast src/${PROJECT_NAME}_broadcast.cc)
+target_link_libraries(${PROJECT_NAME}_broadcast
+  ${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+)

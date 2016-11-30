@@ -35,7 +35,7 @@
  */
 
 #include <blam_slam/BlamSlam.h>
-#include <geometry_utils/Transform3.h>
+#include <geometry_utils/GeometryUtils.h>
 #include <parameter_utils/ParameterUtils.h>
 #include <pcl_conversions/pcl_conversions.h>
 
